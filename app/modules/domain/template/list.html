@@ -1,0 +1,76 @@
+{% extends 'sb-admin/base.html' %}
+{% block content %}
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Domains <small>List Of domains</small></h1>
+            <ol class="breadcrumb">
+              <li class="active"><i class="fa fa-dashboard"></i> Domains</li>
+            </ol>
+            {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-success alert-dismissable">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% if error %}
+            <div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{ error }}
+            </div>
+            {% endif %}
+          </div>
+        </div><!-- /.row -->
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <span><h3 class="panel-title"><i class="fa fa-clock-o"></i> List of Domains</h3><span>
+              </div>
+
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover table-striped tablesorter">
+                <thead>
+                  <tr>
+                    <th>Status <i class="fa fa-sort"></i></th>
+                    <th>Domain Name <i class="fa fa-sort"></i></th>
+                    <th>Disk Usage <i class="fa fa-sort"></i></th>
+                    <th>Date Created <i class="fa fa-sort"></i></th>
+                    <th><i class="fa"></i></th>
+                    <th><i class="fa"></i></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for d in domains %}
+                  <tr>
+                    {% if d.active|string != "Active" %}
+                        <td><span class="label label-danger">Disabled</span></td>
+                    {% else %}
+                        <td><span class="label label-success">Enabled</span></td>
+                    {% endif %}
+                    <td>{{ d.domain }}</td>
+                    <td>{{ d.usage }}M</td>
+                    <td>{{ d.created }}</td>
+                    <td><a target="_blank" href="http://{{ d.domain }}/">View Site</a></td>
+                    <td><a href="/domains/edit/{{ d.domain }}">Open Control Panel</a></td>
+                  </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+              <div class="col-lg-8">
+              </div>
+              <div class="col-lg-3">
+                <h5><p class="text-right">10 | 25 | 100 | All</p></h5>
+              </div>
+              <div class="col-lg-1">
+              </div>
+
+            </div>
+
+        </div><!-- /.row -->
+{% endblock %}

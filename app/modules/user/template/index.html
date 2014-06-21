@@ -1,0 +1,90 @@
+{% extends 'sb-admin/base.html' %}
+{% block content %}
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Users <small>List of users</small></h1>
+            <ol class="breadcrumb">
+              <li class="active"><i class="fa fa-dashboard"></i> Users</li>
+            </ol>
+            {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-success alert-dismissable">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% if error %}
+            <div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{ error }}
+            </div>
+            {% endif %}
+          </div>
+        </div><!-- /.row -->
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <span><h3 class="panel-title"><i class="fa fa-clock-o"></i> List of Users</h3><span>
+              </div>
+
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover table-striped tablesorter">
+                <thead>
+                  <tr>
+                    <th>Active <i class="fa fa-sort"></i></th>
+                    <th>Sudoer <i class="fa fa-sort"></i></th>
+                    <th>Username <i class="fa fa-sort"></i></th>
+                    <th>First Name <i class="fa fa-sort"></i></th>
+                    <th>Last Name <i class="fa fa-sort"></i></th>
+                    <th>Email <i class="fa fa-sort"></i></th>
+                    <th>Domain Access <i class="fa fa-sort"></i></th>
+                    <th>Shell Access <i class="fa fa-sort"></i></th>
+                    <th>Created <i class="fa fa-sort"></i></th>
+                    <th><i class="fa"></i></th>
+                    <th><i class="fa"></i></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                  <tr>
+                    {% if u.active|string != "Active" %}
+                        <td><span class="label label-danger">Disabled</span></td>
+                    {% else %}
+                        <td><span class="label label-success">Enabled</span></td>
+                    {% endif %}
+                    {% if u.sudoer|string == "0" %}
+                        <td><span class="label label-danger">Disabled</span></td>
+                    {% else %}
+                        <td><span class="label label-success">Enabled</span></td>
+                    {% endif %}
+                    <td>{{ u.username }}</td>
+                    <td>{{ u.first_name }}</td>
+                    <td>{{ u.last_name }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.domain_access }}</td>
+                    <td>{{ u.shell }}</td>
+                    <td>{{ u.created }}</td>
+                    <td><a href="/change-password">Change Password</a></td>
+                    <td><a href="/users/edit/{{ u.username }}">Edit</a></td>
+                  </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+              <div class="col-lg-8">
+              </div>
+              <div class="col-lg-3">
+                <h5><p class="text-right">10 | 25 | 100 | All</p></h5>
+              </div>
+              <div class="col-lg-1">
+              </div>
+
+            </div>
+
+        </div><!-- /.row -->
+{% endblock %}

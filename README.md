@@ -1,4 +1,6 @@
-jane
-====
+flask_web_template
+==================
 
-A self-contained, modular control panel written with Python's Flask framework.
+For testing:
+
+flask/bin/python run.py runserver -h yourip -p 8080

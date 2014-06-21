@@ -1,0 +1,75 @@
+{% extends 'sb-admin/base.html' %}
+{% block content %}
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>Overview <small>System Overview</small></h1>
+            <ol class="breadcrumb">
+              <li class="active"><i class="fa fa-dashboard"></i> Overview</li>
+            </ol>
+            <div class="alert alert-success alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              Welcome to zeusCp! This application is still under development so please bear with us!
+            </div>
+          </div>
+        </div><!-- /.row -->
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-clock-o"></i> System</h3>
+              </div>
+              <div class="panel-body">
+                <div class="list-group">
+
+                {% for d in system %}
+                  <div class="list-group-item">
+                    <span class="badge">{{ system[d] }} </span>
+                    <i class=""></i> {{ d }}:
+                  </div>
+                {% endfor %}
+                {% for d in graph %}
+                    {% for x in d %}
+                      <div class="list-group-item">
+                        <span class="badge align-right" style="width:60%;">
+                        <div class="badge progress-bar align-left"
+                            style="height: 13px; width: {{ d[x]['percent'] }}%;">
+                        </div>
+                                Used: {{ d[x]['used'] }}M 
+                              | Total: {{ d[x]['total'] }}M
+                        </span>
+                            <i class=""></i> {{ x }}:
+                      </div>
+                    {% endfor %}
+                {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-clock-o"></i> Services</h3>
+              </div>
+              <div class="panel-body">
+                <div class="list-group">
+
+                {% for d in services %}
+                      <div class="list-group-item">
+                        <span class="badge">{{ services[d] }} </span>
+                        <i class=""></i> {{ d }}:
+                      </div>
+                {% endfor %}
+                {% for d in view_more %}
+                      <div class="list-group-item">
+                        <span class="badge">{{ view_more[d]['number'] }} </span>
+                            <i class=""></i> {{ d }} <a href="{{ view_more[d]['url'] }}/list">view</a> - <a href="{{ view_more[d]['url'] }}/add">add new</a>:
+                      </div>
+                {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /.row -->
+{% endblock %}

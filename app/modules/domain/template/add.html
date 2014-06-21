@@ -1,0 +1,167 @@
+{% extends 'sb-admin/base.html' %}
+{% block content %}
+    <div class="row">
+      <div class="col-lg-12">
+        <h1>Domains <small>Add New</small></h1>
+        <ol class="breadcrumb">
+          <li class="active"><i class="fa fa-dashboard"></i> Domains - Add</li>
+        </ol>
+        {% if success %}
+            <div class="alert alert-danger alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{ success }}
+            </div>
+        {% endif %}
+        {% if error %}
+            <div class="alert alert-danger alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{ error }}
+            </div>
+        {% endif %}
+      </div>
+    </div><!-- /.row -->
+
+    <form roll="form" name="add_domain" method="post">
+    {{ form.hidden_tag() }}
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-clock-o"></i> Add New Domain</h3>
+              </div>
+
+
+                {% for field in form %}
+                    {% if field.type == "TextField" %}
+                        <div class="form-group list-group-item">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon align-left" style="width:140px;">{{ field.short_name.replace("_", " ").title() }}
+                                {% if field.flags.required %}
+                                    <span style="color: red;">*</span>
+                                {% endif %}
+                                </span>
+                                {{ field(size=60,class="form-control input-small",placeholder="Enter your " + field.short_name.replace("_", " ")) }}
+                            </div>
+                            {% if field.flags.required %}
+                                {% for error in field.errors %}
+                                    <span style="color:red;">[{{error}}]</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-clock-o"></i> Add New User</h3>
+              </div>
+
+
+                {% for field in user_form %}
+                    {% if field.type == "TextField" %}
+                        <div class="form-group list-group-item">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon align-left" style="width:140px;">{{ field.short_name.replace("_", " ").title() }}
+                                {% if field.flags.required %}
+                                    <span style="color: red;">*</span>
+                                {% endif %}
+                                </span>
+                                {{ field(size=60,class="form-control input-small",placeholder="Enter your " + field.short_name.replace("_", " ")) }}
+                            </div>
+                            {% if field.flags.required %}
+                                {% for error in field.errors %}
+                                    <span style="color:red;">[{{error}}]</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if field.type == "BooleanField" %}
+                        <div class="form-group list-group-item">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon align-left" style="width:140px;">{{ field.short_name.replace("_", " ").title() }}
+                                {% if field.flags.required %}
+                                    <span style="color: red;">*</span>
+                                {% endif %}
+                                </span>
+                                {{ field(class="form-control input-small", style="width:100%;",placeholder="Enter your " + field.short_name.replace("_", " ")) }}
+                            </div>
+                            {% if field.flags.required %}
+                                {% for error in field.errors %}
+                                    <span style="color:red;">[{{error}}]</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if field.type == "SelectField" %}
+                        <div class="form-group list-group-item">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon align-left" style="width:140px;">{{ field.short_name.replace("_", " ").title() }}
+                                {% if field.flags.required %}
+                                    <span style="color: red;">*</span>
+                                {% endif %}
+                                </span>
+                                {{ field(col=60, class="form-control input-small", style="width:100%;", placeholder="Enter your " + field.short_name.replace("_", " ")) }}
+                            </div>
+                            {% if field.flags.required %}
+                                {% for error in field.errors %}
+                                    <span style="color:red;">[{{error}}]</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if field.type == "PasswordField" %}
+                        <div class="form-group list-group-item">
+                            <div class="form-group input-group">
+                                <span class="input-group-addon align-left" style="width:140px;">{{ field.short_name.replace("_", "").title() }}
+                                {% if field.flags.required %}
+                                    <span style="color: red;">*</span>
+                                {% endif %}
+                                </span>
+                                {{ field(size=60,class="form-control input-small",placeholder="Enter your " + field.short_name.replace("_", " ")) }}
+                            </div>
+                            {% if field.flags.required %}
+                                {% for error in field.errors %}
+                                    <span style="color:red;">[{{error}}]</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+          </div>
+        </div><!-- /.row -->
+
+        <div class="row">
+            {% for field in form %}
+                {% if field.type == "TextAreaField" %}
+                  <div class="col-lg-6">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-clock-o"></i> {{ field.label }}</h3>
+                      </div>
+                        <div class="form-group list-group-item">
+                            {{ field.label }}
+                            {% if field.flags.required %}
+                                <span style="color: red;">*</span>
+                            {% endif %}
+                            <div class="form-group">
+                                {{ field(class="form-control input-small", rows="50") }}
+                            </div>
+                            {% if field.flags.required %}
+                                {% for error in field.errors %}
+                                    <span style="color:red;">[{{error}}]</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                  </div>
+                {% endif %}
+            {% endfor %}
+        </div><!-- /.row -->
+        <div class="form-group">
+            <input class="form-control" type="submit" value="Add New Domain">
+        </div>
+        </form>
+{% endblock %}
